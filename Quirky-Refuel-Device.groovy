@@ -74,7 +74,13 @@ def parse(String description) {
 
 def uninstalled() {
 	log.debug "Executing 'uninstall' in child"
-    parent.uninstallChildDevice(this)
+	try {
+		if (parent) {
+			parent.uninstallChildDevice(this)
+		}
+	} catch (e) {
+		logger.warn "Exception in Quirky Refuel uninstall: $e"
+	}
 }
 
 def poll() {

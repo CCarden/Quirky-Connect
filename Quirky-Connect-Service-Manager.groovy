@@ -447,11 +447,13 @@ def uninstalled()
 {
 	log.debug "In uninstalled"
 
-	removeWinkSubscriptions()
-
-	removeChildDevices(getChildDevices())
-    
-    unschedule()
+	try {
+		removeWinkSubscriptions()
+		removeChildDevices(getChildDevices())
+		unschedule()
+	} catch (e) {
+		logger.warn "Exception: Quirky Service Manager uninstall: $e"
+	}
 }
 
 def removeWinkSubscriptions()
